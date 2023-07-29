@@ -22,7 +22,8 @@ export default defineConfig({
       strategies: 'injectManifest',
       injectManifest: {
         maximumFileSizeToCacheInBytes: 15000000,
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,DS_Store,woff,woff2,stamp,json,blat,wasm,dat,dll,icc,ttf,3,bin,pdf}']
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,DS_Store,woff,woff2,stamp,json,blat,wasm,dat,dll,icc,ttf,3,bin,pdf}'],
+        navigateFallback: 'offline.html',
       },
       devOptions: {
         enabled: true,
