@@ -1,7 +1,7 @@
 importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.5.3/workbox-sw.js');
 // import { cleanupOutdatedCaches, precacheAndRoute } from 'workbox-precaching'
 
-// workbox.precaching.cleanupOutdatedCaches()
+workbox.precaching.cleanupOutdatedCaches()
 
 // const manifest = self.__WB_MANIFEST;
 workbox.precaching.precacheAndRoute(self.__WB_MANIFEST)
