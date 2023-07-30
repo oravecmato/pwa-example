@@ -1,6 +1,6 @@
 <template>
-  <PDFReader msg="Vite + Vue" />
-<!--  <HelloWorld></HelloWorld>-->
+  <HelloWorld v-if="blockReader"></HelloWorld>
+  <PDFReader v-else msg="Vite + Vue" />
 </template>
 
 <script setup>
@@ -10,6 +10,7 @@ import {onMounted} from "vue";
 import resources from '@/data/cachedResources.json';
 import { register } from 'register-service-worker';
 
+const blockReader = ref(true);
 onMounted(() => {
   // const acc = [];
   // resources.map((item) => acc.includes(item.split('.').pop()) ? null : acc.push(item.split('.').pop()));
@@ -33,6 +34,10 @@ onMounted(() => {
       ready(registration) {
         console.log('App is being served from cache by a service worker');
         console.log('ServiceWorker registration successful with scope: ', registration.scope);
+
+        setTimeout(() => {
+          blockReader.value = false;
+        }, 3000);
 
         registration.active.postMessage({
           type: 'MESSAGE_IDENTIFIER',
