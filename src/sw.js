@@ -20,7 +20,8 @@
 //
 import { cacheNames, clientsClaim } from 'workbox-core';
 import { registerRoute, setCatchHandler, setDefaultHandler } from 'workbox-routing';
-import { NetworkFirst, NetworkOnly } from 'workbox-strategies';
+import {CacheFirst, NetworkFirst, NetworkOnly} from 'workbox-strategies';
+import { ExpirationPlugin } from 'workbox-expiration';
 
 const data = {
     race: false,
@@ -116,8 +117,13 @@ self.addEventListener('activate', (event) => {
 });
 
 registerRoute(
-    ({ url }) => manifestURLs.includes(url.href),
+    ({ url }) => manifestURLs.includes(url.href) && !url.pathname.startsWith('/pspdfkit-lib/'),
     buildStrategy()
+);
+
+registerRoute(
+    ({ url }) => manifestURLs.includes(url.href) && url.pathname.startsWith('/pspdfkit-lib/'),
+    new CacheFirst()
 );
 
 setDefaultHandler(new NetworkOnly());
