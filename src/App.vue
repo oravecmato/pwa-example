@@ -6,8 +6,7 @@
 <script setup>
 import PDFReader from './components/PDFReader.vue'
 import HelloWorld from './components/HelloWorld.vue';
-import {onMounted} from "vue";
-import resources from '@/data/cachedResources.json';
+import {onMounted, ref} from "vue";
 import { register } from 'register-service-worker';
 
 const blockReader = ref(true);
