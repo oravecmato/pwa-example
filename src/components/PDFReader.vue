@@ -20,7 +20,7 @@ const loadPSPDFKit = async (file, instantJSON) => {
   return PSPDFKit.load({
     document: file,
     container: '#pspdfkit',
-    baseUrl: 'http://localhost:5173/',
+    baseUrl: import.meta.env.MODE === 'production' ? 'https://oravecmato-pwa.netlify.app/' : 'http://localhost:5173/',
     initialViewState: new PSPDFKit.ViewState({
       sidebarMode: PSPDFKit.SidebarMode.THUMBNAILS,
     }),
