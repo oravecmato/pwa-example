@@ -1,11 +1,11 @@
 <template>
-<!--  <PDFReader msg="Vite + Vue" />-->
-  <HelloWorld></HelloWorld>
+  <PDFReader msg="Vite + Vue" />
+<!--  <HelloWorld></HelloWorld>-->
 </template>
 
 <script setup>
-// import PDFReader from './components/PDFReader.vue'
-import HelloWorld from './components/HelloWorld.vue';
+import PDFReader from './components/PDFReader.vue'
+// import HelloWorld from './components/HelloWorld.vue';
 import {onMounted} from "vue";
 import resources from '@/data/cachedResources.json';
 import { register } from 'register-service-worker';
