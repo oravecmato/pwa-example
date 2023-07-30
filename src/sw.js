@@ -24,7 +24,7 @@ import { NetworkFirst, NetworkOnly } from 'workbox-strategies';
 
 const data = {
     race: false,
-    debug: false,
+    debug: true,
     credentials: 'same-origin',
     networkTimeoutSeconds: 0,
     fallback: 'index.html',
@@ -86,6 +86,9 @@ self.addEventListener('install', (event) => {
         caches.open(cacheName).then((cache) => {
             return cache.addAll(cacheEntries);
         })
+            .catch(error => {
+                console.error(error);
+            })
     );
 });
 
