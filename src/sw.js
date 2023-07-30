@@ -6,7 +6,7 @@ cleanupOutdatedCaches()
 
 precacheAndRoute(self.__WB_MANIFEST);
 
-registerRoute(new NavigationRoute(createHandlerBoundToURL('/index.html')), new StaleWhileRevalidate());
+// registerRoute(new NavigationRoute(createHandlerBoundToURL('/index.html')), new StaleWhileRevalidate());
 
 registerRoute(
     ({url}) => url.pathname.startsWith('/pspdfkit-lib/'),
