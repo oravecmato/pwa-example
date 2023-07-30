@@ -5,31 +5,13 @@
 
 <script setup>
 import PDFReader from './components/PDFReader.vue'
-// import HelloWorld from './components/HelloWorld.vue';
+import HelloWorld from './components/HelloWorld.vue';
 import {onMounted} from "vue";
 import resources from '@/data/cachedResources.json';
 import { register } from 'register-service-worker';
 
 const blockReader = ref(true);
 onMounted(() => {
-  // const acc = [];
-  // resources.map((item) => acc.includes(item.split('.').pop()) ? null : acc.push(item.split('.').pop()));
-  // console.log(acc);
-
-  // if ('serviceWorker' in navigator) {
-  //
-  //     navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`)
-  //         .then(function(registration) {
-  //
-  //         }, err => {
-  //           // registration failed :(
-  //           console.log('ServiceWorker registration failed: ', err);
-  //         });
-  //
-  // }
-
-  // if (import.meta.env.MODE === 'production') {
-
     register(`${import.meta.env.BASE_URL}sw.js`, {
       ready(registration) {
         console.log('App is being served from cache by a service worker');
@@ -99,8 +81,6 @@ onMounted(() => {
         console.error('Error during service worker registration:', error)
       },
     })
-
-  // }
 
 });
 </script>
