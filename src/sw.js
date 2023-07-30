@@ -18,9 +18,9 @@
 // );
 //
 //
-// const { cacheNames, clientsClaim } = workbox.core;
-// const { registerRoute, setCatchHandler, setDefaultHandler } = workbox.routing;
-// const { NetworkFirst, NetworkOnly } = workbox.strategies;
+import { cacheNames, clientsClaim } from 'workbox-core';
+import { registerRoute, setCatchHandler, setDefaultHandler } from 'workbox-routing';
+import { NetworkFirst, NetworkOnly } from 'workbox-strategies';
 
 const data = {
     race: false,
