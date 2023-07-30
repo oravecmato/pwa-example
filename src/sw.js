@@ -69,7 +69,9 @@ const manifest = self.__WB_MANIFEST;
 
 const cacheEntries = [];
 
-const manifestURLs = manifest.filter(entry => !entry.url.includes('pspdfkit-lib')).map((entry) => {
+const manifestURLs = manifest
+    // .filter(entry => !entry.url.includes('pspdfkit-lib'))
+    .map((entry) => {
     const url = new URL(entry.url, self.location);
     cacheEntries.push(
         new Request(url.href, {
