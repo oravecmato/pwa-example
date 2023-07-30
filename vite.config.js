@@ -20,6 +20,8 @@ export default defineConfig({
     VitePWA({
       injectRegister: null,
       strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.js',
       injectManifest: {
         maximumFileSizeToCacheInBytes: 15000000,
         globPatterns: ['**/*.{js,css,html,ico,png,svg,DS_Store,woff,woff2,stamp,json,blat,wasm,dat,dll,icc,ttf,3,bin,pdf}'],
