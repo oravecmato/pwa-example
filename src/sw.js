@@ -1,12 +1,17 @@
-import { cleanupOutdatedCaches, precacheAndRoute, createHandlerBoundToURL, precache } from 'workbox-precaching'
+import { cleanupOutdatedCaches, precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching'
 import { registerRoute, NavigationRoute } from 'workbox-routing'
-import {NetworkFirst, StaleWhileRevalidate} from 'workbox-strategies';
+import {CacheFirst, NetworkFirst, StaleWhileRevalidate} from 'workbox-strategies';
 
 cleanupOutdatedCaches()
 
 precacheAndRoute(self.__WB_MANIFEST);
 
 registerRoute(new NavigationRoute(createHandlerBoundToURL('/index.html')), new StaleWhileRevalidate());
+
+registerRoute(
+    ({request}) => request.destination === 'style',
+    new CacheFirst()
+);
 
 // TODO: add PDF & instantJSON api here, too
 registerRoute(
