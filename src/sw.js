@@ -7,9 +7,16 @@ self.addEventListener('activate', event => event.waitUntil(self.clients.claim())
 
 cleanupOutdatedCaches()
 
-precacheAndRoute(self.__WB_MANIFEST);
+const precacheManifest = self.__WB_MANIFEST;
+precacheManifest.push({ url: '/sw.js', revision: null });
+precacheAndRoute(precacheManifest);
 
 registerRoute(new NavigationRoute(createHandlerBoundToURL('/index.html')), new StaleWhileRevalidate());
+
+registerRoute(
+    ({ url }) => url.pathname === '/sw.js',
+    new NetworkFirst()
+);
 
 registerRoute(
     ({request}) => request.destination === 'style',
