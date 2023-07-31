@@ -2,6 +2,9 @@ import { cleanupOutdatedCaches, precacheAndRoute, createHandlerBoundToURL } from
 import { registerRoute, NavigationRoute } from 'workbox-routing'
 import {CacheFirst, NetworkFirst, StaleWhileRevalidate} from 'workbox-strategies';
 
+self.addEventListener('install', event => event.waitUntil(self.skipWaiting()));
+self.addEventListener('activate', event => event.waitUntil(self.clients.claim()));
+
 cleanupOutdatedCaches()
 
 precacheAndRoute(self.__WB_MANIFEST);
