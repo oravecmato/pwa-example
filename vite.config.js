@@ -43,4 +43,7 @@ export default defineConfig({
     host: true,
     hmr: { overlay: true },
   },
+  build: {
+    modulePreload: false,
+  }
 })
