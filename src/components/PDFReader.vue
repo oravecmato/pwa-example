@@ -26,6 +26,7 @@ const loadPSPDFKit = async (file, instantJSON) => {
     }),
     instant: true,
     ...(() => (!isInstantJsonEmpty(instantJSON) ? { instantJSON: toRaw(instantJSON) } : {}))(),
+    enableServiceWorkerSupport: true,
     toolbarItems: [
       'sidebar-thumbnails',
       'sidebar-document-outline',
