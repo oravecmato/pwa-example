@@ -7,13 +7,13 @@ const filesToCache = self.__WB_MANIFEST;
 // Clean up outdated caches
 // cleanupOutdatedCaches();
 
-// Exclude /pspdfkit-lib/ paths and precache remaining assets
-const assetsToCache = filesToCache.filter(item => !item.url.startsWith('/pspdfkit-lib/'));
+// Exclude pspdfkit-lib/ paths and precache remaining assets
+const assetsToCache = filesToCache.filter(item => !item.url.startsWith('pspdfkit-lib/'));
 // precacheAndRoute(assetsToCache);
 
 // Use StaleWhileRevalidate for other assets
 registerRoute(
-    ({ request }) => !request.url.includes('/pspdfkit-lib/') && new URL(request.url).origin === location.origin,
+    ({ request }) => !request.url.includes('pspdfkit-lib/') && new URL(request.url).origin === location.origin,
     new StaleWhileRevalidate()
 );
 
@@ -27,7 +27,7 @@ async function clearOutdatedPSPDFKitLibCaches() {
     const cachedURLs = cachedRequests.map(request => request.url);
 
     const manifestURLs = filesToCache
-        .filter(item => item.url.startsWith('/pspdfkit-lib/'))
+        .filter(item => item.url.startsWith('pspdfkit-lib/'))
         .map(item => new URL(item.url, location.origin).href);
 
     console.log('manifestURLs:', manifestURLs.length);
@@ -54,7 +54,7 @@ self.addEventListener('message', async (event) => {
         const cacheMustHaveAssets = async () => {
             const cache = await caches.open('pspdfkit-lib');
             const mustHaveAssets = filesToCache.filter(item => {
-                return item.url.startsWith('/pspdfkit-lib/') && mustHaveExtensions.includes(item.url.split('.').pop());
+                return item.url.startsWith('pspdfkit-lib/') && mustHaveExtensions.includes(item.url.split('.').pop());
             });
 
             for (const asset of mustHaveAssets) {
@@ -72,7 +72,7 @@ self.addEventListener('message', async (event) => {
         if (hasPspdfAssetsChanged) {
             // Attempt to cache all assets
             caches.open('pspdfkit-lib').then(cache => {
-                const allAssets = filesToCache.filter(item => item.url.startsWith('/pspdfkit-lib/'));
+                const allAssets = filesToCache.filter(item => item.url.startsWith('pspdfkit-lib/'));
 
                 Promise.all(allAssets.map(asset => fetch(asset.url).then(response => cache.put(asset.url, response))))
                     .catch(async () => {
@@ -81,8 +81,8 @@ self.addEventListener('message', async (event) => {
                         await cacheMustHaveAssets();
                     })
                     .then(() => {
-                        // Register CacheFirst strategy for /pspdfkit-lib/ assets
-                        registerRoute(({request}) => request.url.includes('/pspdfkit-lib/') && new URL(request.url).origin === location.origin, new CacheFirst());
+                        // Register CacheFirst strategy for pspdfkit-lib/ assets
+                        registerRoute(({request}) => request.url.includes('pspdfkit-lib/') && new URL(request.url).origin === location.origin, new CacheFirst());
                     });
             });
         }
