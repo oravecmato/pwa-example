@@ -1,5 +1,5 @@
 import { registerRoute } from 'workbox-routing';
-import { CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { CacheFirst, StaleWhileRevalidate, NetworkFirst } from 'workbox-strategies';
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 
 const filesToCache = self.__WB_MANIFEST;
