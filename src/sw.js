@@ -28,7 +28,7 @@ async function clearOutdatedPSPDFKitLibCaches() {
 
     const manifestURLs = filesToCache
         .filter(item => item.url.startsWith('pspdfkit-lib/'))
-        .map(item => new URL(item.url, location.origin).href);
+        .map(item => new URL('/' + item.url, location.origin).href);
 
     console.log('manifestURLs:', manifestURLs.length);
     console.log('cached URLs:', cachedURLs.length)
