@@ -1,6 +1,7 @@
 <template>
   <HelloWorld v-if="blockReader"></HelloWorld>
   <PDFReader v-else msg="Vite + Vue" />
+  <button class="signIn" @click="sendSignInEvent">Sign In</button>
 </template>
 
 <script setup>
@@ -10,6 +11,19 @@ import {onMounted, ref} from "vue";
 // import { register } from 'register-service-worker';
 
 const blockReader = ref(false);
+
+const sendSignInEvent = () => {
+  if ('serviceWorker' in navigator) {
+    alert('gonna do it')
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      registrations.forEach(registration => {
+        alert('doing it yeah!')
+        registration.active.postMessage({ type: 'sign_in' });
+      });
+    });
+  }
+}
+
 onMounted(() => {
 //     register(`${import.meta.env.BASE_URL}sw.js`, {
 //       ready(registration) {
@@ -81,3 +95,12 @@ onMounted(() => {
 
 });
 </script>
+<style scoped>
+.signIn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 10px 30px;
+  z-index: 1000;
+}
+</style>
