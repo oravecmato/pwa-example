@@ -5,11 +5,11 @@ import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 const filesToCache = self.__WB_MANIFEST;
 
 // Clean up outdated caches
-// cleanupOutdatedCaches();
+cleanupOutdatedCaches();
 
 // Exclude pspdfkit-lib/ paths and precache remaining assets
 const assetsToCache = filesToCache.filter(item => !item.url.startsWith('pspdfkit-lib/'));
-// precacheAndRoute(assetsToCache);
+precacheAndRoute(assetsToCache);
 
 // Use StaleWhileRevalidate for other assets
 registerRoute(
@@ -56,6 +56,8 @@ self.addEventListener('message', async (event) => {
             const mustHaveAssets = filesToCache.filter(item => {
                 return item.url.startsWith('pspdfkit-lib/') && mustHaveExtensions.includes(item.url.split('.').pop());
             });
+
+            console.log('Must have assets', mustHaveAssets.length)
 
             for (const asset of mustHaveAssets) {
                 try {
