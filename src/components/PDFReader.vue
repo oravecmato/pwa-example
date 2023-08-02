@@ -24,6 +24,7 @@ const loadPSPDFKit = async (file, instantJSON) => {
     initialViewState: new PSPDFKit.ViewState({
       sidebarMode: PSPDFKit.SidebarMode.THUMBNAILS,
     }),
+    disableWebAssemblyStreaming: window.disableWebAssemblyStreaming || false,
     instant: true,
     ...(() => (!isInstantJsonEmpty(instantJSON) ? { instantJSON: toRaw(instantJSON) } : {}))(),
     enableServiceWorkerSupport: true,
