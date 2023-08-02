@@ -7,13 +7,13 @@ const filesToCache = self.__WB_MANIFEST;
 // Clean up outdated caches
 cleanupOutdatedCaches();
 
-// Exclude /pdfkit-lib/ paths and precache remaining assets
-const assetsToCache = filesToCache.filter(item => !item.url.startsWith('/pdfkit-lib/'));
+// Exclude /pspdfkit-lib/ paths and precache remaining assets
+const assetsToCache = filesToCache.filter(item => !item.url.startsWith('/pspdfkit-lib/'));
 precacheAndRoute(assetsToCache);
 
 // Use StaleWhileRevalidate for other assets
 registerRoute(
-    ({ request }) => !request.url.includes('/pdfkit-lib/') && new URL(request.url).origin === location.origin,
+    ({ request }) => !request.url.includes('/pspdfkit-lib/') && new URL(request.url).origin === location.origin,
     new StaleWhileRevalidate()
 );
 
