@@ -83,14 +83,10 @@ self.addEventListener('message', async (event) => {
             console.log('Must have assets', mustHaveAssets.length)
 
             for (const asset of mustHaveAssets) {
-                try {
-                    const response = await fetch(asset.url);
-                    await cache.put(asset.url, response);
-                } catch (error) {
-                    console.error('Failed to cache a must-have asset:', asset.url, error);
-                }
+                const response = await fetch(asset.url);
+                await cache.put(asset.url, response);
             }
-        };
+        }
 
         const hasPspdfAssetsChanged = await clearOutdatedPSPDFKitLibCaches();
 
