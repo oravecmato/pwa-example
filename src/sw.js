@@ -1,4 +1,4 @@
-import { registerRoute } from 'workbox-routing';
+import { registerRoute, registerNavigationRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate, NetworkFirst, NetworkOnly } from 'workbox-strategies';
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
 
@@ -113,7 +113,8 @@ self.addEventListener('message', async (event) => {
                     .then(() => {
                         // Register CacheFirst strategy for pspdfkit-lib/ assets
                         registerRoute(({request}) => request.url.includes('pspdfkit-lib/') && new URL(request.url).origin === location.origin, new CacheFirst());
-                        registerFallbackHtmlRoute(disableWebAssemblyStreaming ? '/noWasmIndex.html' : '/index.html');
+                        // registerFallbackHtmlRoute(disableWebAssemblyStreaming ? '/noWasmIndex.html' : '/index.html');
+                        registerNavigationRoute(disableWebAssemblyStreaming ? '/noWasmIndex.html' : '/index.html');
                     });
             });
         }
