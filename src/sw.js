@@ -48,21 +48,18 @@ async function clearOutdatedPSPDFKitLibCaches() {
 }
 
 const registerFallbackHtmlRoute = (fallbackUrl = '/index.html') => {
-
     // Custom handler to serve "index.html" when offline
     const customHandler = async ({event}) => {
         const networkOnly = new NetworkOnly();
         try {
             return await networkOnly.handle(event);
         } catch (error) {
-            // If the network request fails, attempt to retrieve the fallback html from the cache
             return caches.match(fallbackUrl, {
-                ignoreVary: true, // Ignore any Vary headers when matching
+                ignoreVary: true,
             });
         }
     };
 
-    // Register the route for navigation requests
     registerRoute(
         ({request}) => request.mode === 'navigate',
         customHandler,
@@ -113,6 +110,7 @@ self.addEventListener('message', async (event) => {
                     .then(() => {
                         // Register CacheFirst strategy for pspdfkit-lib/ assets
                         registerRoute(({request}) => request.url.includes('pspdfkit-lib/') && new URL(request.url).origin === location.origin, new CacheFirst());
+                        console.log({ disableWebAssemblyStreaming })
                         registerFallbackHtmlRoute(disableWebAssemblyStreaming ? '/noWasmIndex.html' : '/index.html');
                     });
             });
