@@ -1,6 +1,7 @@
 import { registerRoute } from 'workbox-routing';
 import { CacheFirst, StaleWhileRevalidate, NetworkFirst, NetworkOnly } from 'workbox-strategies';
 import { precacheAndRoute, cleanupOutdatedCaches } from 'workbox-precaching';
+import { cacheNames} from 'workbox-core';
 
 const filesToCache = self.__WB_MANIFEST;
 
@@ -54,9 +55,8 @@ const registerFallbackHtmlRoute = (fallbackUrl = '/index.html') => {
         try {
             return await networkOnly.handle(event);
         } catch (error) {
-            return caches.match(fallbackUrl, {
-                ignoreVary: true,
-            });
+            const cache = await caches.open(cacheNames.precache);
+            return await cache.match(fallbackUrl) || await caches.match(fallbackUrl);
         }
     };
 
